@@ -1,10 +1,100 @@
-<html>
-  <head>
-  <title>
-    Marc Home page UI and 
-  </title>
-  </head>
-  <body>
-    
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Smart Attendance System</title>
+</head>
+<body style="margin:0; font-family: Arial, sans-serif; background-color: #f0f4f7;">
+
+    <!-- Header -->
+    <header style="background-color: #4CAF50; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+        <h1 style="margin:0; font-size: 22px;">Welcome, Student</h1>
+        <button style="padding: 8px 15px; border: none; border-radius: 5px; background-color: #fff; color: #4CAF50; cursor: pointer;">Logout</button>
+    </header>
+
+    <!-- Main Dashboard Container -->
+    <main style="padding: 20px; display: flex; flex-direction: column; gap: 20px;">
+
+        <!-- Attendance Overview -->
+        <section>
+            <h2 style="color: #333; margin-bottom: 15px;">Attendance Overview</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+
+                <!-- Class Card 1 -->
+                <div style="flex: 1; min-width: 200px; background-color: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    <h3 style="margin:0 0 10px 0;">Mathematics</h3>
+                    <p>Total Lectures: 20</p>
+                    <p>Attended: 18</p>
+                    <p>Attendance: 90%</p>
+                </div>
+
+                <!-- Class Card 2 -->
+                <div style="flex: 1; min-width: 200px; background-color: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    <h3 style="margin:0 0 10px 0;">Physics</h3>
+                    <p>Total Lectures: 15</p>
+                    <p>Attended: 12</p>
+                    <p>Attendance: 80%</p>
+                </div>
+
+                <!-- Class Card 3 -->
+                <div style="flex: 1; min-width: 200px; background-color: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    <h3 style="margin:0 0 10px 0;">Chemistry</h3>
+                    <p>Total Lectures: 18</p>
+                    <p>Attended: 16</p>
+                    <p>Attendance: 88%</p>
+                </div>
+
+            </div>
+            <div style="flex: 1; min-width: 200px; background-color: #ffeb3b; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center;">
+    <h3 style="margin:0 0 10px 0;">Overall Attendance</h3>
+    <p style="font-size: 22px; font-weight: bold;">86.8%</p>
+    <p style="margin: 0; font-size: 14px; color: #555;">Combined for all subjects</p>
+</div>
+        </section>
+
+        <!-- Optional Quick Links -->
+        <section>
+            <h2 style="color: #333; margin-bottom: 10px;">Quick Actions</h2>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button style="padding: 10px 15px; border: none; border-radius: 6px; background-color: #4CAF50; color: white; cursor: pointer;">View Full Attendance</button>
+                <button style="padding: 10px 15px; border: none; border-radius: 6px; background-color: #2196F3; color: white; cursor: pointer;">Download Report</button>
+            </div>
+        </section>
+        <!-- Bottom Taskbar -->
+<div style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: white; display: flex; justify-content: space-around; align-items: center; padding: 10px 0; font-size: 14px; box-shadow: 0 -4px 10px rgba(0,0,0,0.2);">
+
+    <!-- Leaderboard -->
+    <div style="text-align: center; cursor: pointer;">
+        <strong>Leaderboard</strong><br>
+        <span style="font-size:12px;">Top 10 Students</span>
+    </div>
+
+    <!-- Quick Links -->
+    <div style="text-align: center; cursor: pointer;">
+        <strong>Attendance</strong><br>
+        <span style="font-size:12px;">View All</span>
+    </div>
+
+    <div style="text-align: center; cursor: pointer;">
+        <strong>Achievements</strong><br>
+        <span style="font-size:12px;">Badges</span>
+    </div>
+
+    <div style="text-align: center; cursor: pointer;">
+        <strong>Notifications</strong><br>
+        <span style="font-size:12px;">Alerts</span>
+    </div>
+
+    <div style="text-align: center; cursor: pointer;">
+        <strong>Profile</strong><br>
+        <span style="font-size:12px;">Settings</span>
+    </div>
+
+</div>
+
+
+    </main>
+
+</body>
 </html>
