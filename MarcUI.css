@@ -49,4 +49,17 @@ table {width:100%; border-collapse:collapse; margin-top:10px;}
 th, td {border:1px solid #ccc; padding:8px; text-align:center;}
 th {background:#eee;}
 tr.absent {background:#ffcccc;}
+
+/* Calendar Day Styling */
+#calendar div {
+    transition: transform 0.2s;
+}
+#calendar div:hover {transform: scale(1.1);}
+
+/* Weekend highlights */
+.weekend {font-weight:bold;
+border: 2px solid;
+background-color: #2196F3 !important; }
+.holiday {background:#9C27B0 !important; color:white !important;}
+
 @media(max-width:600px){.cards{flex-direction:column;}}

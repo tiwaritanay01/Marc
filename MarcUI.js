@@ -66,65 +66,98 @@ history.forEach(h=>{
 
 // Attendance by Date
 const attendanceByDate = {
-    "2025-09-01": { "attended": 0, "total": 4 },
-    "2025-09-02": { "attended": 0, "total": 4 },
-    "2025-09-03": { "attended": 0, "total": 4 },
-    "2025-09-04": { "attended": 0, "total": 4 },
-    "2025-09-05": { "attended": 0, "total": 4 },
-    "2025-09-06": { "attended": 0, "total": 4 },
-    "2025-09-07": { "attended": 0, "total": 4 },
-    "2025-09-08": { "attended": 0, "total": 4 },
-    "2025-09-09": { "attended": 0, "total": 4 },
-    "2025-09-10": { "attended": 0, "total": 4 },
-    "2025-09-11": { "attended": 0, "total": 4 },
-    "2025-09-12": { "attended": 0, "total": 4 },
-    "2025-09-13": { "attended": 0, "total": 4 },
-    "2025-09-14": { "attended": 0, "total": 4 },
-    "2025-09-15": { "attended": 0, "total": 4 },
-    "2025-09-16": { "attended": 0, "total": 4 },
-    "2025-09-17": { "attended": 0, "total": 4 },
-    "2025-09-18": { "attended": 4, "total": 4 },
-    "2025-09-19": { "attended": 3, "total": 4 },
-    "2025-09-20": { "attended": 1, "total": 4 },
-    "2025-09-21": { "attended": 0, "total": 4 },
-    "2025-09-22": { "attended": 0, "total": 4 },
-    "2025-09-23": { "attended": 0, "total": 4 },
-    "2025-09-24": { "attended": 0, "total": 4 },
-    "2025-09-25": { "attended": 0, "total": 4 },
-    "2025-09-26": { "attended": 0, "total": 4 },
-    "2025-09-27": { "attended": 0, "total": 4 },
-    "2025-09-28": { "attended": 0, "total": 4 },
-    "2025-09-29": { "attended": 0, "total": 4 },
-    "2025-09-30": { "attended": 0, "total": 4 },
-    "2025-09-31": { "attended": 0, "total": 4 }
+    "2025-09-01 Monday": { "attended": 3, "total": 4 },
+    "2025-09-02 tuesday" : { "attended": 4, "total": 4 },
+    "2025-09-03 wednesday": { "attended": 2, "total": 4 },
+    "2025-09-04 thursday": { "attended": 4, "total": 4 },
+    "2025-09-05 friday": { "attended": 1, "total": 4 },
+    "2025-09-06 saturday": { "attended": 0, "total": 4 },
+    "2025-09-07 sunday": { "attended": 0, "total": 4 },
+    "2025-09-08 Monday": { "attended": 4, "total": 4 },
+    "2025-09-09 tuesday": { "attended": 3, "total": 4 },
+    "2025-09-10 wednesday": { "attended": 0, "total": 4 },
+    "2025-09-11 thursday": { "attended": 4, "total": 4 },
+    "2025-09-12 friday": { "attended": 4, "total": 4 },
+    "2025-09-13 saturday": { "attended": 0, "total": 4 },
+    "2025-09-14 Sunday": { "attended": 0, "total": 4 },
+    "2025-09-15 Monday": { "attended": 0, "total": 4 },
+    "2025-09-16 tuesday": { "attended": 3, "total": 4 },
+    "2025-09-17 wednesday": { "attended": 2, "total": 4 },
+    "2025-09-18 thursday": { "attended": 4, "total": 4 },
+    "2025-09-19 friday": { "attended": 3, "total": 4 },
+    "2025-09-20 saturday": { "attended": 0, "total": 4 },
+    "2025-09-21 sunday": { "attended": 0, "total": 4 },
+    "2025-09-22 monday": { "attended": 0, "total": 4 },
+    "2025-09-23 tuesday": { "attended": 0, "total": 4 },
+    "2025-09-24 wednesday": { "attended": 0, "total": 4 },
+    "2025-09-25 thursday": { "attended": 0, "total": 4 },
+    "2025-09-26 friday": { "attended": 0, "total": 4 },
+    "2025-09-27 saturday": { "attended": 0, "total": 4 },
+    "2025-09-28 sunday": { "attended": 0, "total": 4 },
+    "2025-09-29 monday": { "attended": 0, "total": 4 },
+    "2025-09-30 tuesday": { "attended": 0, "total": 4 }
 };
 
-// Calendar (Full Month)
+// Holidays (example)
+const holidays = ["2025-09-10", "2025-09-15", "2025-09-28"];
+
+// Calendar
 const calendar = document.getElementById("calendar");
 const calendarInfo = document.getElementById("calendarInfo");
 
-for (let d = 1; d <= 31; d++) {
-    const dayStr = d.toString().padStart(2, '0');
+function getDayOfWeek(dateStr){
+    const parts = dateStr.split("-");
+    const date = new Date(parts[0], parts[1]-1, parts[2]);
+    return date.getDay(); // 0=Sun,6=Sat
+}
+
+for(let d=1; d<=30; d++){
+    const dayStr = d.toString().padStart(2,'0');
     const date = `2025-09-${dayStr}`;
-    const data = attendanceByDate[date] || {attended:0, total:4};
+
+    // Find the matching entry in attendanceByDate
+    let data = {attended:0, total:4};
+    for(const key in attendanceByDate){
+        if(key.startsWith(date)){
+            data = attendanceByDate[key];
+            break;
+        }
+    }
 
     const div = document.createElement("div");
-    div.style.padding = "15px";
+    div.style.padding = "10px";
     div.style.borderRadius = "8px";
     div.style.textAlign = "center";
     div.style.cursor = "pointer";
-    div.innerHTML = `<strong>${d}</strong>`;
 
-    if (data.attended === data.total) {
-        div.style.background = "#4CAF50"; div.style.color = "white";
-    } else if (data.attended === 0) {
-        div.style.background = "#f44336"; div.style.color = "white";
+    // Get day of week
+    const dayOfWeek = getDayOfWeek(date);
+    const dayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    const dayName = dayNames[dayOfWeek];
+
+    // Show day, day name, and attendance
+    div.innerHTML = `<strong>${d}</strong><br><span style="font-size:12px">${dayName}</span><br><span style="font-size:12px">${data.attended}/${data.total}</span>`;
+
+    // Weekend highlight (border only)
+    if(dayOfWeek === 0 || dayOfWeek === 6) div.classList.add("weekend");
+
+    // Holiday
+    if(holidays.includes(date)){
+        div.classList.add("holiday");
     } else {
-        div.style.background = "#ffeb3b"; div.style.color = "#333";
+        // Attendance colors
+        if(data.attended === data.total){
+            div.style.background = "#4CAF50"; div.style.color = "white"; // full attendance → green
+        } else if(data.attended === 0){
+            div.style.background = "#f44336"; div.style.color = "white"; // absent → red
+        } else {
+            div.style.background = "#ffeb3b"; div.style.color = "#333"; // partial → yellow
+        }
     }
 
+    div.title = `${date}: Attended ${data.attended}/${data.total}`;
     div.addEventListener("click", ()=>{
-        calendarInfo.innerText = `${date}: Attended ${data.attended} out of ${data.total} lectures (${Math.round((data.attended/data.total)*100)}%)`;
+        calendarInfo.innerText = `${date}: Attended ${data.attended} out of ${data.total} lectures (${Math.round(data.attended/data.total*100)}%)`;
     });
 
     calendar.appendChild(div);
