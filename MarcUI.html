@@ -1,40 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard - Smart Attendance System</title>
-    <style>
-        /* Basic Reset */
-        * {margin:0; padding:0; box-sizing:border-box;}
-        body {font-family: Arial, sans-serif; background:#f0f4f7; display:flex; flex-direction:column; min-height:100vh;}
-        header {background:#4CAF50; color:#fff; padding:15px 20px; display:flex; justify-content:space-between; align-items:center;}
-        header button {padding:8px 15px; border:none; border-radius:5px; background:#fff; color:#4CAF50; cursor:pointer;}
-        main {flex:1; padding:20px; display:flex; flex-direction:column; gap:20px;}
-
-        /* Buttons */
-        .btn {padding:10px 15px; border:none; border-radius:6px; cursor:pointer;}
-        .btn-blue {background:#2196F3; color:#fff;}
-        .btn-green {background:#4CAF50; color:#fff;}
-        .btn-yellow {background:#ffeb3b; color:#333;}
-
-        /* Attendance Cards */
-        .cards {display:flex; flex-wrap:wrap; gap:20px;}
-        .card {flex:1; min-width:200px; background:#fff; padding:15px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1);}
-        .progress-bar {height:15px; border-radius:8px; background:#ddd; overflow:hidden; margin-top:5px;}
-        .progress {height:100%; background:#4CAF50; text-align:right; padding-right:5px; color:#fff; font-size:12px; line-height:15px;}
-
-        /* History Table */
-        table {width:100%; border-collapse:collapse; margin-top:10px;}
-        th, td {border:1px solid #ccc; padding:8px; text-align:center;}
-        th {background:#eee;}
-
-        /* Bottom Taskbar */
-        .taskbar {position:fixed; bottom:0; left:0; width:100%; background:#333; color:#fff; display:flex; justify-content:space-around; align-items:center; padding:10px 0; font-size:14px; box-shadow:0 -4px 10px rgba(0,0,0,0.2);}
-        .taskbar div {text-align:center; cursor:pointer;}
-        .taskbar div:hover {transform:scale(1.1); transition:0.2s;}
-        @media(max-width:600px){.cards{flex-direction:column;}}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Dashboard - Smart Attendance System</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -42,6 +12,14 @@
     <h1>Welcome, John Doe</h1>
     <button>Logout</button>
 </header>
+
+<!-- Sticky Taskbar -->
+<div class="taskbar">
+    <div><strong>Leaderboard</strong><br><span style="font-size:12px;">Top 10 Students</span></div>
+    <div><strong>Achievements</strong><br><span style="font-size:12px;">Badges</span></div>
+    <div><strong>Notifications</strong><br><span style="font-size:12px;">Alerts</span></div>
+    <div><strong>Profile</strong><br><span style="font-size:12px;">Settings</span></div>
+</div>
 
 <main>
     <!-- Toggle Overall Attendance -->
@@ -57,9 +35,7 @@
     <!-- Attendance Overview -->
     <section>
         <h2>Attendance Overview</h2>
-        <div class="cards" id="classCards">
-            <!-- Cards populated by JS -->
-        </div>
+        <div class="cards" id="classCards"></div>
     </section>
 
     <!-- Attendance History -->
@@ -67,11 +43,15 @@
         <h2>Attendance History</h2>
         <table>
             <thead>
-                <tr><th>Date</th><th>Subject</th><th>Status</th></tr>
+                <tr>
+                    <th>Date</th>
+                    <th>Subject</th>
+                    <th>Status</th>
+                    <th>Duration</th>
+                    <th>Attendance Marked</th>
+                </tr>
             </thead>
-            <tbody id="historyTable">
-                <!-- Rows populated by JS -->
-            </tbody>
+            <tbody id="historyTable"></tbody>
         </table>
     </section>
 
@@ -83,75 +63,17 @@
             <button class="btn btn-blue">Download Report</button>
         </div>
     </section>
+
+    <!-- Attendance Calendar -->
+    <section>
+        <h2>Attendance Calendar</h2>
+        <div id="calendar" style="display:grid; grid-template-columns: repeat(7,1fr); gap:10px; max-width:500px;">
+            <!-- Days will be filled by JS -->
+        </div>
+        <p id="calendarInfo" style="margin-top:10px; font-weight:bold; color:#333;"></p>
+    </section>
 </main>
 
-<!-- Bottom Taskbar -->
-<div class="taskbar">
-    <div><strong>Leaderboard</strong><br><span style="font-size:12px;">Top 10 Students</span></div>
-    <div><strong>Achievements</strong><br><span style="font-size:12px;">Badges</span></div>
-    <div><strong>Notifications</strong><br><span style="font-size:12px;">Alerts</span></div>
-    <div><strong>Profile</strong><br><span style="font-size:12px;">Settings</span></div>
-</div>
-
-<script>
-    // Sample Data
-    const classes = [
-        {name:"Mathematics", total:20, attended:18},
-        {name:"Physics", total:15, attended:12},
-        {name:"Chemistry", total:18, attended:16}
-    ];
-    const history = [
-        {date:"2025-09-20", subject:"Mathematics", status:"Present"},
-        {date:"2025-09-20", subject:"Physics", status:"Absent"},
-        {date:"2025-09-19", subject:"Chemistry", status:"Present"},
-        {date:"2025-09-18", subject:"Mathematics", status:"Present"}
-    ];
-
-    // Populate Class Cards
-    const classCards = document.getElementById("classCards");
-    let totalAttended=0, totalLectures=0;
-    classes.forEach(c=>{
-        const card = document.createElement("div");
-        card.className="card";
-        card.innerHTML = `<h3>${c.name}</h3>
-                          <p>Total Lectures: ${c.total}</p>
-                          <p>Attended: ${c.attended}</p>
-                          <p>Attendance: ${Math.round(c.attended/c.total*100)}%</p>
-                          <div class="progress-bar">
-                              <div class="progress" style="width:${Math.round(c.attended/c.total*100)}%">${Math.round(c.attended/c.total*100)}%</div>
-                          </div>`;
-        classCards.appendChild(card);
-        totalAttended += c.attended;
-        totalLectures += c.total;
-    });
-
-    // Overall Attendance
-    const overallPercent = Math.round(totalAttended/totalLectures*100);
-    document.getElementById("overallPercent").innerText = overallPercent+"%";
-    document.getElementById("overallProgress").style.width = overallPercent+"%";
-    document.getElementById("overallProgress").innerText = overallPercent+"%";
-
-    // Toggle Overall Attendance
-    const toggleBtn = document.getElementById("toggleBtn");
-    const overallDiv = document.getElementById("overallAttendance");
-    toggleBtn.addEventListener("click", ()=>{
-        if(overallDiv.style.display==="none"){
-            overallDiv.style.display="block";
-            toggleBtn.innerText="Hide Overall Attendance";
-        } else {
-            overallDiv.style.display="none";
-            toggleBtn.innerText="Show Overall Attendance";
-        }
-    });
-
-    // Populate History Table
-    const historyTable = document.getElementById("historyTable");
-    history.forEach(h=>{
-        const tr = document.createElement("tr");
-        tr.innerHTML = `<td>${h.date}</td><td>${h.subject}</td><td>${h.status}</td>`;
-        historyTable.appendChild(tr);
-    });
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>

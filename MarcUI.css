@@ -1,4 +1,52 @@
-.body{
-cursor: pointer; 
-transition: transform 0.2s;
+* {margin:0; padding:0; box-sizing:border-box;}
+body {font-family: Arial, sans-serif; background:#f0f4f7; display:flex; flex-direction:column; min-height:100vh;}
+
+/* Header */
+header {
+    background:#4CAF50;
+    color:#fff;
+    padding:15px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
+header button {
+    padding:8px 15px;
+    border:none;
+    border-radius:5px;
+    background:#fff;
+    color:#4CAF50;
+    cursor:pointer;
+}
+
+/* Taskbar */
+.taskbar {
+    background:#333;
+    color:#fff;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    padding:10px 0;
+    font-size:14px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.taskbar div {text-align:center; cursor:pointer;}
+.taskbar div:hover {transform:scale(1.1); transition:0.2s;}
+
+main {flex:1; padding:20px; display:flex; flex-direction:column; gap:20px;}
+.btn {padding:10px 15px; border:none; border-radius:6px; cursor:pointer;}
+.btn-blue {background:#2196F3; color:#fff;}
+.btn-green {background:#4CAF50; color:#fff;}
+.btn-yellow {background:#ffeb3b; color:#333;}
+.cards {display:flex; flex-wrap:wrap; gap:20px;}
+.card {flex:1; min-width:200px; background:#fff; padding:15px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+.progress-bar {height:15px; border-radius:8px; background:#ddd; overflow:hidden; margin-top:5px;}
+.progress {height:100%; background:#4CAF50; text-align:right; padding-right:5px; color:#fff; font-size:12px; line-height:15px;}
+table {width:100%; border-collapse:collapse; margin-top:10px;}
+th, td {border:1px solid #ccc; padding:8px; text-align:center;}
+th {background:#eee;}
+tr.absent {background:#ffcccc;}
+@media(max-width:600px){.cards{flex-direction:column;}}
